@@ -1,0 +1,12 @@
+---
+title: "Stat331:FinalProject"
+author: "Alea Seifert"
+format: html
+editor: source
+---
+
+## Running Code
+
+```{r}
+
+```
