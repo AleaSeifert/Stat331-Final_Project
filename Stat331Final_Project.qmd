@@ -1,6 +1,6 @@
 ---
 title: "Stat331:FinalProject"
-author: "Alea Seifert, Robelyn Felices"
+author: "Alea Seifert, Robelyn Felices, Franchesca Garcia"
 embed-resources: true
 format: html
 editor: source
