@@ -6,8 +6,31 @@ format: html
 editor: source
 ---
 
-## Running Code
+## Project Proposal - Data
 
-```{r}
+```{r setup}
+library(tidyverse)
+```
+
+```{r data}
+# Data
+co2_emmisions <- read_csv(here::here("co2_pcap_cons.csv"))
+life_expectancy <- read_csv(here::here("lex.csv"))
+
+# Data cleaning
+
+
+# Pivoting Longer
+co2_emmisions_long <- co2_emmisions |>
+  mutate(across(`1800`:`2022`, ~ as.numeric(.x))) |>
+  pivot_longer(cols = `1800`:`2022`,
+               names_to = "year",
+               values_to = "co2")
+
+life_exp_long <- life_expectancy |>
+  mutate(across(`1800`:`2100`, ~ as.numeric(.x))) |>
+  pivot_longer(cols = `1800`:`2100`,
+               names_to = "year",
+               values_to = "life_exp")
 
 ```
