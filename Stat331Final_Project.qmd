@@ -17,9 +17,6 @@ library(tidyverse)
 co2_emmisions <- read_csv(here::here("co2_pcap_cons.csv"))
 life_expectancy <- read_csv(here::here("lex.csv"))
 
-# Data cleaning
-
-
 # Pivoting Longer
 co2_emmisions_long <- co2_emmisions |>
   mutate(across(`1800`:`2022`, ~ as.numeric(.x))) |>
@@ -32,5 +29,12 @@ life_exp_long <- life_expectancy |>
   pivot_longer(cols = `1800`:`2100`,
                names_to = "year",
                values_to = "life_exp")
+
+# Join Datasets
+project_data <- co2_emmisions_long |>
+  inner_join(life_exp_long, 
+             by = c("country", "year")) |>
+  mutate(year = as.numeric(year))
+head(project_data)
 
 ```
