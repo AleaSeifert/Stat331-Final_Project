@@ -9,6 +9,7 @@ editor: source
 ## Project Proposal - Data
 
 ```{r setup}
+# load in data
 library(tidyverse)
 ```
 
@@ -19,22 +20,30 @@ life_expectancy <- read_csv(here::here("lex.csv"))
 
 # Pivoting Longer
 co2_emmisions_long <- co2_emmisions |>
+  mutate(across(`1800`:`2022`, ~ str_replace_all(.x, "−", "-"))) |>
   mutate(across(`1800`:`2022`, ~ as.numeric(.x))) |>
-  pivot_longer(cols = `1800`:`2022`,
-               names_to = "year",
-               values_to = "co2")
+  pivot_longer(
+    cols = `1800`:`2022`,
+    names_to = "year",
+    values_to = "co2"
+  )
 
 life_exp_long <- life_expectancy |>
   mutate(across(`1800`:`2100`, ~ as.numeric(.x))) |>
-  pivot_longer(cols = `1800`:`2100`,
-               names_to = "year",
-               values_to = "life_exp")
+  pivot_longer(
+    cols = `1800`:`2100`,
+    names_to = "year",
+    values_to = "life_exp"
+  )
 
 # Join Datasets
 project_data <- co2_emmisions_long |>
-  inner_join(life_exp_long, 
-             by = c("country", "year")) |>
+  inner_join(life_exp_long,
+    by = c("country", "year")
+  ) |>
   mutate(year = as.numeric(year))
 head(project_data)
-
 ```
+
+#### Data Description
+
