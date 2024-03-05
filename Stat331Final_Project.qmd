@@ -53,13 +53,11 @@ head(project_data)
 
 #### Project Data Info
 
-Hypothesized relationship (and any outside references)
+**Hypothesized relationship**
 
--   inner joined
+We expect a negative relationship between CO2 emissions and life expectancy, where countries that produce greater amounts of C02 tend to have lower life expectancy. We assume C02 emissions decrease air quality and cause respiratory issues, decreasing life expectancy.
 
--   convert year to numeric
-
-Data cleaning process and decisions
+**Data cleaning process and decisions**
 
 When downloading our desired data sets, CO2 emissions per capita and life expectancy we received some warnings during our attempts to pivot our data sets. We came to learn that R was reading in the negative dashes as character variables as opposed to numeric, specifically in our CO2 emissions data.
 
