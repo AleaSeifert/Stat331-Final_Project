@@ -53,4 +53,16 @@ head(project_data)
 
 #### Project Data Info
 
-Hypothesized relationship (and any outside references) Data cleaning process and decisions
+Hypothesized relationship (and any outside references)
+
+-   inner joined
+
+-   convert year to numeric
+
+Data cleaning process and decisions
+
+When downloading our desired data sets, CO2 emissions per capita and life expectancy we received some warnings during our attempts to pivot our data sets. We came to learn that R was reading in the negative dashes as character variables as opposed to numeric, specifically in our CO2 emissions data.
+
+To fix this issue, our group utilized `str_replace_all` (string replace) in order to replace the character variable with negative signs. This process was only applied for the CO2 emissions data.
+
+We applied as.numeric for both data sets, and lastly pivoted long each data to receive our variables country, year and the data collected per data set.
