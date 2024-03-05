@@ -8,6 +8,11 @@ editor: source
 
 ## Project Proposal - Data
 
+#### Data Description
+For our final project, we chose to focus on CO2 emissions per capita and life expectancy. We are using two data sets (one for each variable), both from Gapminder. The co2_emissions data set contains 194 observations (countries) with 224 variables (ranging in year from 1800 to 2022). These data represent the recorded consumption-based CO2 emissions, in tonnes of CO2 per capita. The life_expectancy data set contains 195 observations (countries) with 302 variables (ranging in year from 1800 to 2100). These data represent the number of years a newborn infant would live assuming the mortality rate at their birth remains constant throughout their life.
+
+#### Data Cleaning/Setup
+
 ```{r setup}
 # load in data
 library(tidyverse)
@@ -15,11 +20,11 @@ library(tidyverse)
 
 ```{r data}
 # Data
-co2_emmisions <- read_csv(here::here("co2_pcap_cons.csv"))
+co2_emissions <- read_csv(here::here("co2_pcap_cons.csv"))
 life_expectancy <- read_csv(here::here("lex.csv"))
 
 # Pivoting Longer
-co2_emmisions_long <- co2_emmisions |>
+co2_emissions_long <- co2_emissions |>
   mutate(across(`1800`:`2022`, ~ str_replace_all(.x, "−", "-"))) |>
   mutate(across(`1800`:`2022`, ~ as.numeric(.x))) |>
   pivot_longer(
@@ -37,7 +42,7 @@ life_exp_long <- life_expectancy |>
   )
 
 # Join Datasets
-project_data <- co2_emmisions_long |>
+project_data <- co2_emissions_long |>
   inner_join(life_exp_long,
     by = c("country", "year")
   ) |>
@@ -45,5 +50,7 @@ project_data <- co2_emmisions_long |>
 head(project_data)
 ```
 
-#### Data Description
+#### Project Data Info
 
+Hypothesized relationship (and any outside references)
+Data cleaning process and decisions

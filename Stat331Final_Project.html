@@ -3047,13 +3047,19 @@ vertical-align: -.125em;
 
 <section id="project-proposal---data" class="level2">
 <h2 class="anchored" data-anchor-id="project-proposal---data">Project Proposal - Data</h2>
+<section id="data-description" class="level4">
+<h4 class="anchored" data-anchor-id="data-description">Data Description</h4>
+<p>For our final project, we chose to focus on CO2 emissions per capita and life expectancy. We are using two data sets (one for each variable), both from Gapminder. The co2_emissions data set contains 194 observations (countries) with 224 variables (ranging in year from 1800 to 2022). These data represent the recorded consumption-based CO2 emissions, in tonnes of CO2 per capita. The life_expectancy data set contains 195 observations (countries) with 302 variables (ranging in year from 1800 to 2100). These data represent the number of years a newborn infant would live assuming the mortality rate at their birth remains constant throughout their life.</p>
+</section>
+<section id="data-cleaningsetup" class="level4">
+<h4 class="anchored" data-anchor-id="data-cleaningsetup">Data Cleaning/Setup</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load in data</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ dplyr     1.1.4     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.0
 ✔ ggplot2   3.4.4     ✔ tibble    3.2.1
 ✔ lubridate 1.9.3     ✔ tidyr     1.3.0
 ✔ purrr     1.0.2     
@@ -3065,7 +3071,7 @@ vertical-align: -.125em;
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>co2_emmisions <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;co2_pcap_cons.csv&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>co2_emissions <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;co2_pcap_cons.csv&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 194 Columns: 224
 ── Column specification ────────────────────────────────────────────────────────
@@ -3088,7 +3094,7 @@ dbl (301): 1800, 1801, 1802, 1803, 1804, 1805, 1806, 1807, 1808, 1809, 1810,...
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pivoting Longer</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>co2_emmisions_long <span class="ot">&lt;-</span> co2_emmisions <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>co2_emissions_long <span class="ot">&lt;-</span> co2_emissions <span class="sc">|&gt;</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="st">`</span><span class="at">1800</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2022</span><span class="st">`</span>, <span class="sc">~</span> <span class="fu">str_replace_all</span>(.x, <span class="st">&quot;−&quot;</span>, <span class="st">&quot;-&quot;</span>))) <span class="sc">|&gt;</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="st">`</span><span class="at">1800</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2022</span><span class="st">`</span>, <span class="sc">~</span> <span class="fu">as.numeric</span>(.x))) <span class="sc">|&gt;</span></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
@@ -3106,7 +3112,7 @@ dbl (301): 1800, 1801, 1802, 1803, 1804, 1805, 1806, 1807, 1808, 1809, 1810,...
 <span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Join Datasets</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>project_data <span class="ot">&lt;-</span> co2_emmisions_long <span class="sc">|&gt;</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>project_data <span class="ot">&lt;-</span> co2_emissions_long <span class="sc">|&gt;</span></span>
 <span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(life_exp_long,</span>
 <span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;country&quot;</span>, <span class="st">&quot;year&quot;</span>)</span>
 <span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
@@ -3124,8 +3130,10 @@ dbl (301): 1800, 1801, 1802, 1803, 1804, 1805, 1806, 1807, 1808, 1809, 1810,...
 6 Afghanistan  1805 0.001     28.2</code></pre>
 </div>
 </div>
-<section id="data-description" class="level4">
-<h4 class="anchored" data-anchor-id="data-description">Data Description</h4>
+</section>
+<section id="project-data-info" class="level4">
+<h4 class="anchored" data-anchor-id="project-data-info">Project Data Info</h4>
+<p>Hypothesized relationship (and any outside references) Data cleaning process and decisions</p>
 </section>
 </section>
 
