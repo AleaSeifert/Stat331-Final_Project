@@ -9,6 +9,7 @@ editor: source
 ## Project Proposal - Data
 
 #### Data Description
+
 For our final project, we chose to focus on CO2 emissions per capita and life expectancy. We are using two data sets (one for each variable), both from Gapminder. The co2_emissions data set contains 194 observations (countries) with 224 variables (ranging in year from 1800 to 2022). These data represent the recorded consumption-based CO2 emissions, in tonnes of CO2 per capita. The life_expectancy data set contains 195 observations (countries) with 302 variables (ranging in year from 1800 to 2100). These data represent the number of years a newborn infant would live assuming the mortality rate at their birth remains constant throughout their life.
 
 #### Data Cleaning/Setup
@@ -52,5 +53,4 @@ head(project_data)
 
 #### Project Data Info
 
-Hypothesized relationship (and any outside references)
-Data cleaning process and decisions
+Hypothesized relationship (and any outside references) Data cleaning process and decisions
