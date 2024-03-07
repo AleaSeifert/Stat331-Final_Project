@@ -2,17 +2,27 @@
 title: "Stat331:FinalProject"
 author: "Alea Seifert, Robelyn Felices, Franchesca Garcia, and Libby Brill"
 embed-resources: true
-format: html
+format: 
+  html:
+    self-contained: true
+    code-tools: true
+    toc: true
 editor: source
+code-fold: true
+execute: 
+  error: true
+  echo: true
+  message: false
+  warning: false
 ---
 
-## Project Proposal - Data
+## Introduction
 
 #### Data Description
 
-For our final project, we chose to focus on CO2 emissions per capita and life expectancy. We are using two data sets (one for each variable), both from Gapminder. The co2_emissions data set contains 194 observations (countries) with 224 variables (ranging in year from 1800 to 2022). These data represent the recorded consumption-based CO2 emissions, in tonnes of CO2 per capita. The life_expectancy data set contains 195 observations (countries) with 302 variables (ranging in year from 1800 to 2100). These data represent the number of years a newborn infant would live assuming the mortality rate at their birth remains constant throughout their life.
+For our final project, we chose to focus on CO2 emissions per capita and life expectancy. We use data sets taken from Gapminder, which have been combined and collected from a variety of sources. The co2_emissions data set contains 194 observations (countries) with 224 variables (ranging in year from 1800 to 2022). These data represent the recorded consumption-based CO2 emissions, in tonnes of CO2 per capita. The life_expectancy data set contains 195 observations (countries) with 302 variables (ranging in year from 1800 to 2100). These data represent the number of years a newborn infant would live assuming the mortality rate at their birth remains constant throughout their life.
 
-#### Data Cleaning/Setup
+#### Data Cleaning
 
 ```{r setup}
 # load in data
@@ -48,19 +58,15 @@ project_data <- co2_emissions_long |>
     by = c("country", "year")
   ) |>
   mutate(year = as.numeric(year))
-head(project_data)
+
 ```
-
-#### Project Data Info
-
-**Hypothesized relationship**
-
-We expect a negative relationship between CO2 emissions and life expectancy, where countries that produce greater amounts of C02 tend to have lower life expectancy. We assume C02 emissions decrease air quality and cause respiratory issues, decreasing life expectancy.
-
-**Data cleaning process and decisions**
 
 When downloading our desired data sets, CO2 emissions per capita and life expectancy we received some warnings during our attempts to pivot our data sets. We came to learn that R was reading in the negative dashes as character variables as opposed to numeric, specifically in our CO2 emissions data.
 
 To fix this issue, our group utilized `str_replace_all` (string replace) in order to replace the character variable with negative signs. This process was only applied for the CO2 emissions data.
 
 We applied as.numeric for both data sets, and lastly pivoted long each data to receive our variables country, year and the data collected per data set.
+
+#### Hypothesized Relationship
+
+In our model we will analyze CO2 emissions as the explanatory variable and life expectancy as the response variable. We expect a negative relationship between CO2 emissions and life expectancy, where countries that produce greater amounts of C02 tend to have lower life expectancy. We assume C02 emissions decrease air quality and cause respiratory issues, decreasing life expectancy.
