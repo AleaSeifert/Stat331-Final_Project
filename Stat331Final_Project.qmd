@@ -1,5 +1,5 @@
 ---
-title: "Stat331:FinalProject"
+title: "Stat331: FinalProject"
 author: "Alea Seifert, Robelyn Felices, Franchesca Garcia, and Libby Brill"
 embed-resources: true
 format: 
@@ -76,6 +76,19 @@ In our model we will analyze CO2 emissions as the explanatory variable and life 
 #### Data Visualization
 ```{r}
 # Visualization 1:
+library(gganimate)
+animated <- project_data |>
+  ggplot(aes(x = co2, 
+             y = life_exp)) +
+  geom_point(alpha = 0.7, show.legend = FALSE,
+             na.rm = TRUE) +
+  scale_size(range = c(2, 12)) +
+  # Here comes the gganimate specific bits
+  labs(title = 'Year: {frame_time}', x = 'CO2 Emmision', y = 'Life Expectancy') +
+  transition_time(year) +
+  ease_aes('linear') 
+
+animate(animated, renderer = gifski_renderer())
 
 # Visualization 2:
 project_data |>
