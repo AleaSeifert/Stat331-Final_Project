@@ -3025,6 +3025,7 @@ vertical-align: -.125em;
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#linear-regression-analysis" id="toc-linear-regression-analysis" class="nav-link" data-scroll-target="#linear-regression-analysis">Linear Regression Analysis</a></li>
   </ul>
 </nav>
 </div>
@@ -3066,22 +3067,7 @@ vertical-align: -.125em;
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load in data</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<<<<<<< HEAD
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.4
-✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ ggplot2   3.4.4     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.0
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-=======
 </details>
->>>>>>> 0fda1413a53ca739cc1c8a6ac7eee0c4ee514bcb
 </div>
 <div class="cell">
 <details>
@@ -3123,6 +3109,18 @@ vertical-align: -.125em;
 <section id="hypothesized-relationship" class="level4">
 <h4 class="anchored" data-anchor-id="hypothesized-relationship">Hypothesized Relationship</h4>
 <p>In our model we will analyze CO2 emissions as the explanatory variable and life expectancy as the response variable. We expect a negative relationship between CO2 emissions and life expectancy, where countries that produce greater amounts of C02 tend to have lower life expectancy. We assume C02 emissions decrease air quality and cause respiratory issues, decreasing life expectancy.</p>
+</section>
+</section>
+<section id="linear-regression-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="linear-regression-analysis">Linear Regression Analysis</h2>
+<section id="data-visualization" class="level4">
+<h4 class="anchored" data-anchor-id="data-visualization">Data Visualization</h4>
+</section>
+<section id="linear-regression-model" class="level4">
+<h4 class="anchored" data-anchor-id="linear-regression-model">Linear Regression Model</h4>
+</section>
+<section id="model-fit" class="level4">
+<h4 class="anchored" data-anchor-id="model-fit">Model Fit</h4>
 <!-- -->
 
 </section>
@@ -3485,7 +3483,22 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Hypothesized Relationship</span></span>
 <span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>In our model we will analyze CO2 emissions as the explanatory variable and life expectancy as the response variable. We expect a negative relationship between CO2 emissions and life expectancy, where countries that produce greater amounts of C02 tend to have lower life expectancy. We assume C02 emissions decrease air quality and cause respiratory issues, decreasing life expectancy.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>In our model we will analyze CO2 emissions as the explanatory variable and life expectancy as the response variable. We expect a negative relationship between CO2 emissions and life expectancy, where countries that produce greater amounts of C02 tend to have lower life expectancy. We assume C02 emissions decrease air quality and cause respiratory issues, decreasing life expectancy.</span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a><span class="fu">## Linear Regression Analysis </span></span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Data Visualization</span></span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Linear Regression Model</span></span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Model Fit</span></span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
