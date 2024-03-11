@@ -75,7 +75,24 @@ In our model we will analyze CO2 emissions as the explanatory variable and life 
 
 #### Data Visualization
 ```{r}
+# Visualization 1:
 
+# Visualization 2:
+project_data |>
+  group_by(country) |>
+  summarize(avg_co2 = mean(co2),
+            avg_life_exp = mean(life_exp)
+            ) |>
+  ggplot(mapping = aes(x = avg_co2,
+                       y = avg_life_exp)
+         ) +
+  geom_point(alpha = 0.7,
+             na.rm = TRUE) +
+  labs(title = "Averge CO2 Emmisions vs. Average Life Expectancy per Country",
+       x = "Average CO2 Emmisions",
+       y = "",
+       subtitle = "Average Life Expectancy") +
+  theme_bw()
 ```
 
 #### Linear Regression Model
