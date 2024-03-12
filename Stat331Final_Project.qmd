@@ -78,16 +78,15 @@ In our model we will analyze CO2 emissions as the explanatory variable and life 
 #### Data Visualization
 
 ```{r}
-# | fig-cap: "Figure 1."
 # Visualization 1:
 animated <- project_data |>
   ggplot(aes(x = co2, 
              y = life_exp)) +
   geom_point(alpha = 0.7, show.legend = FALSE,
              na.rm = TRUE) +
-  labs(title = "CO2 Emisions vs. Life Expectancy per Year",
+  labs(title = "CO2 Emissions vs. Life Expectancy per Year",
        subtitle = "Year: {round(frame_time)}",
-       x = "CO2 Emisions (tonnes per capita)",
+       x = "CO2 Emissions (tonnes per capita)",
        y = "Life Expectancy (years)") +
   transition_time(year) +
   ease_aes("linear") +
@@ -95,10 +94,10 @@ animated <- project_data |>
 
 animate(animated, renderer = gifski_renderer(), fps = 7)
 ```
-Figure 1 depicts the relationship between the explanatory variable of carbon dioxide emissions per capita in tons and the response variable of life expectancy in years over years 1800 to 2022. It appears that with each year, both CO2 emissions and life expectancy increase. They likely both increase over time due to ..... 
+
+Figure 1 depicts the relationship between the explanatory variable of carbon dioxide emissions per capita in tonnes and the response variable of life expectancy in years over years 1800 to 2022. It appears that with each year, both CO2 emissions and life expectancy increase. They likely both increase over time due to .....
 
 ```{r}
-# | fig-cap: "Figure 2."
 # Visualization 2:
 project_data |>
   group_by(country) |>
@@ -109,20 +108,20 @@ project_data |>
   geom_jitter(na.rm = TRUE) +
   geom_smooth(method = "lm", na.rm = TRUE) +
   theme_bw() +
-  labs(title = "Averge CO2 Emisions and Life Expectancy per Country",
-       x = "Average CO2 Emisions (tonnes per capita)",
+  labs(title = "Averge CO2 Emissions and Life Expectancy per Country",
+       x = "Average CO2 Emissions (tonnes per capita)",
        y = NULL,
        subtitle = "Average Life Expectancy (years)")
 
 ```
-Figure 2 depicts the average carbon dioxide emissions per capita in tons per country and the average life expectancy per country over the years 1800 to 2022. It appears that there is positive weak to moderate linear relationship between the two variable. In addition to the apparent increase in life expectancy as CO2 emissions increase, there also appears to be a curved pattern as emissions increase, there is a steep slope, but it plateaus as emissions rise.
+
+Figure 2 depicts the average carbon dioxide emissions per capita in tonnes per country and the average life expectancy per country over the years 1800 to 2022. It appears that there is positive weak to moderate linear relationship between the two variable. In addition to the apparent increase in life expectancy as CO2 emissions increase, there also appears to be a curved pattern as emissions increase, there is a steep slope, but it plateaus as emissions rise.
 
 #### Linear Regression Model
 
-We used Simple Linear Regression (SLR) to fit a linear model between our variables. By using SLR, we assume that there is a linear relationship between average co2 emissions and average life expectancy per country, and we can use that to estimate a country’s average life expectancy (response variable) based on their average co2 emissions (explanatory variable). This function will be of the following form: response = intercept + slope * explanatory. Therefore, we can predict the average life expectancy of a country by multiplying their average co2 emissions by the model slope and adding the model intercept.
+We used Simple Linear Regression (SLR) to fit a linear model between our variables. By using SLR, we assume that there is a linear relationship between average co2 emissions and average life expectancy per country, and we can use that to estimate a country’s average life expectancy (response variable) based on their average co2 emissions (explanatory variable). This function will be of the following form: response = intercept + slope \* explanatory. Therefore, we can predict the average life expectancy of a country by multiplying their average co2 emissions by the model slope and adding the model intercept.
 
 ```{r}
-#| fig-cap: "Table 1."
 # Model:
 project_lm <- project_data |>
   group_by(country) |>
@@ -136,10 +135,13 @@ broom::tidy(project_lm) |>
   knitr::kable(digits = 3)
 ```
 
+$\widehat{y} = 41.149 + 1.806x$
+
+Our response variable is life expectancy and our explanatory is CO2 emissions. Our simple linear model provided us with the information that the average life expectancy is 41.149 years when carbon dioxide emissions are zero. The slope term in our model is stating that for every additional one tonne per capita of CO2 emissions, the estimated life expectancy goes up by 1.806 years, on average.
+
 #### Model Fit
 
 ```{r}
-#| fig-cap: "Figure 4."
 project_lm |> 
   broom::augment() |> 
 ggplot(aes(x = .fitted, y = .resid)) +
@@ -153,7 +155,3 @@ ggplot(aes(x = .fitted, y = .resid)) +
               lwd = 1.5) +
   theme_bw()
 ```
-
-$\widehat{y} = 41.149 + 1.806x$
-
-For every additional one ton per capita of CO2 emissions, we can expect a 1.806 year increase in life expectancy.
