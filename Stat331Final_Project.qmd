@@ -96,7 +96,7 @@ animated <- project_data |>
 animate(animated, renderer = gifski_renderer(), fps = 7)
 ```
 
-Figure 1 depicts the relationship between the explanatory variable of carbon dioxide emissions per capita in tonnes and the response variable of life expectancy in years over years 1800 to 2022. It appears that with each year, both CO2 emissions and life expectancy increase. They likely both increase over time due to .....
+Figure 1 depicts the relationship between the explanatory variable of carbon dioxide emissions per capita in tonnes and the response variable of life expectancy in years over years 1800 to 2022. It appears that with each year, both CO2 emissions and life expectancy increase. They likely both increase over time due to technology advancements. While the effects of CO2 emissions can create an impact on an individuals health, society still progresses in fields such as health care.
 
 ```{r}
 # Visualization 2:
@@ -165,6 +165,3 @@ augment(project_lm) |>
   mutate(var_prop = var_fit/var_response) |>
   knitr::kable(digits = 3)
 ```
-
-
-
