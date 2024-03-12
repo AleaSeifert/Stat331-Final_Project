@@ -83,9 +83,9 @@ animated <- project_data |>
              y = life_exp)) +
   geom_point(alpha = 0.7, show.legend = FALSE,
              na.rm = TRUE) +
-  labs(title = "CO2 Emmisions vs. Life Expectancy per Year",
+  labs(title = "CO2 Emisions vs. Life Expectancy per Year",
        subtitle = "Year: {round(frame_time)}",
-       x = "CO2 Emmisions",
+       x = "CO2 Emisions",
        y = "Life Expectancy") +
   transition_time(year) +
   ease_aes("linear") +
@@ -104,8 +104,8 @@ project_data |>
          ) +
   geom_point(alpha = 0.7,
              na.rm = TRUE) +
-  labs(title = "Averge CO2 Emmisions and Life Expectancy per Country",
-       x = "Average CO2 Emmisions",
+  labs(title = "Averge CO2 Emisions and Life Expectancy per Country",
+       x = "Average CO2 Emisions",
        y = "",
        subtitle = "Average Life Expectancy") +
   theme_bw()
@@ -114,22 +114,29 @@ project_data |>
 #### Linear Regression Model
 
 ```{r}
+# Visualization:
 project_data |>
   group_by(country) |>
   summarize(avg_co2 = mean(co2),
             avg_life_exp = mean(life_exp)) |>
   ggplot(aes(x = avg_co2,
              y = avg_life_exp)) +
-  geom_jitter() +
-  geom_smooth(method = "lm")
+  geom_jitter(na.rm = TRUE) +
+  geom_smooth(method = "lm", na.rm = TRUE) +
+  theme_bw() +
+  labs(title = "Averge CO2 Emisions and Life Expectancy per Country",
+       x = "Average CO2 Emisions",
+       y = "Average Life Expectancy")
 
+# Model:
 project_lm <- project_data |>
   group_by(country) |>
   summarize(avg_co2 = mean(co2),
             avg_life_exp = mean(life_exp))
 
+# Coefficients:
 project_lm <- lm(avg_life_exp ~ avg_co2,
-               data = project_lm)
+                 data = project_lm)
 broom::tidy(project_lm) |>
   knitr::kable(digits = 3)
 ```
