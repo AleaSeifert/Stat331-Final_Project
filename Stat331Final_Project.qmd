@@ -78,6 +78,7 @@ In our model we will analyze CO2 emissions as the explanatory variable and life 
 #### Data Visualization
 
 ```{r}
+# | fig-cap: "Figure 1."
 # Visualization 1:
 animated <- project_data |>
   ggplot(aes(x = co2, 
@@ -94,32 +95,11 @@ animated <- project_data |>
 
 animate(animated, renderer = gifski_renderer(), fps = 7)
 ```
+Figure 1 depicts the relationship between the explanatory variable of carbon dioxide emissions per capita in tons and the response variable of life expectancy in years over years 1800 to 2022. It appears that with each year, both CO2 emissions and life expectancy increase. They likely both increase over time due to ..... 
 
 ```{r}
-
+# | fig-cap: "Figure 2."
 # Visualization 2:
-project_data |>
-  group_by(country) |>
-  summarize(avg_co2 = mean(co2),
-            avg_life_exp = mean(life_exp)
-            ) |>
-  ggplot(mapping = aes(x = avg_co2,
-                       y = avg_life_exp)
-         ) +
-  geom_point(alpha = 0.7,
-             na.rm = TRUE) +
-  labs(title = "Averge CO2 Emisions and Life Expectancy per Country",
-       x = "Average CO2 Emisions (tonnes per capita)",
-       y = "",
-       subtitle = "Average Life Expectancy (years)") +
-  theme_bw()
-
-```
-
-#### Linear Regression Model
-
-```{r}
-# Visualization:
 project_data |>
   group_by(country) |>
   summarize(avg_co2 = mean(co2),
@@ -134,6 +114,12 @@ project_data |>
        y = NULL,
        subtitle = "Average Life Expectancy (years)")
 
+```
+Figure 2 depicts the average carbon dioxide emissions per capita in tons per country and the average life expectancy per country over the years 1800 to 2022. It appears that there is positive weak to moderate linear relationship between the two variable. In addition to the apparent increase in life expectancy as CO2 emissions increase, there also appears to be a curved pattern as emissions increase, there is a steep slope, but it plateaus as emissions rise.
+
+#### Linear Regression Model
+```{r}
+#| fig-cap: "Table 1."
 # Model:
 project_lm <- project_data |>
   group_by(country) |>
@@ -150,18 +136,21 @@ broom::tidy(project_lm) |>
 #### Model Fit
 
 ```{r}
-
+#| fig-cap: "Figure 4."
 project_lm |> 
   broom::augment() |> 
 ggplot(aes(x = .fitted, y = .resid)) +
   geom_point() + 
+  labs(x = "Fitted Values",
+       y = "Residuals") +
   geom_abline(slope = 0,
               intercept = 0, 
               color = "steelblue",
               linetype = "dashed",
-              lwd = 1.5) 
+              lwd = 1.5) +
+  theme_bw()
 ```
 
 $\widehat{y} = 41.149 + 1.806x$
 
-For every additional one ton per capita of CO2 emissions, we can expect an additional year in life expectancy.
+For every additional one ton per capita of CO2 emissions, we can expect a 1.806 year increase in life expectancy.
