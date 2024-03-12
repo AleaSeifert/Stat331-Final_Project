@@ -111,8 +111,17 @@ project_data |>
 ```
 
 #### Linear Regression Model
-<<<<<<< HEAD
+
 ```{r}
+project_data |>
+  group_by(country) |>
+  summarize(avg_co2 = mean(co2),
+            avg_life_exp = mean(life_exp)) |>
+  ggplot(aes(x = avg_co2,
+             y = avg_life_exp)) +
+  geom_jitter() +
+  geom_smooth(method = "lm")
+
 project_lm <- project_data |>
   group_by(country) |>
   summarize(avg_co2 = mean(co2),
@@ -120,13 +129,8 @@ project_lm <- project_data |>
 
 project_lm <- lm(avg_life_exp ~ avg_co2,
                data = project_lm)
-broom::tidy(project_lm)
-=======
-
-```{r}
-project_lm <- lm(life_exp ~ co2,
-               data = project_data)
->>>>>>> 3400c16e0bb7e68fef8548ac24978c33c6755a7b
+broom::tidy(project_lm) |>
+  knitr::kable(digits = 3)
 ```
 
 #### Model Fit
