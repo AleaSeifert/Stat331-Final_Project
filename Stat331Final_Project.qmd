@@ -29,6 +29,7 @@ For our final project, we chose to focus on CO2 emissions per capita and life ex
 library(tidyverse)
 library(gganimate)
 library(gifski)
+library(broom)
 ```
 
 ```{r data}
@@ -155,3 +156,15 @@ ggplot(aes(x = .fitted, y = .resid)) +
               lwd = 1.5) +
   theme_bw()
 ```
+
+```{r}
+augment(project_lm) |>
+  summarize(var_response = var(avg_life_exp),
+            var_fit = var(.fitted),
+            var_resid = var(.resid)) |>
+  mutate(var_prop = var_fit/var_response) |>
+  knitr::kable(digits = 3)
+```
+
+
+
