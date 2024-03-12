@@ -72,7 +72,7 @@ We applied as.numeric for both data sets, and lastly pivoted long each data to r
 
 #### Hypothesized Relationship
 
-In our model we will analyze CO2 emissions as the explanatory variable and life expectancy as the response variable. We expect a negative relationship between CO2 emissions and life expectancy, where countries that produce greater amounts of C02 tend to have lower life expectancy. We assume C02 emissions decrease air quality and cause respiratory issues, decreasing life expectancy.
+In our model we will analyze CO2 emissions as the explanatory variable and life expectancy as the response variable. We expect a negative relationship between CO2 emissions and life expectancy, where countries that produce greater amounts of CO2 tend to have lower life expectancy. We assume CO2 emissions decrease air quality and cause respiratory issues, decreasing life expectancy.
 
 ## Linear Regression Analysis
 
