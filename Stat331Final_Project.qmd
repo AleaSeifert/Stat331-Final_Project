@@ -118,6 +118,9 @@ project_data |>
 Figure 2 depicts the average carbon dioxide emissions per capita in tons per country and the average life expectancy per country over the years 1800 to 2022. It appears that there is positive weak to moderate linear relationship between the two variable. In addition to the apparent increase in life expectancy as CO2 emissions increase, there also appears to be a curved pattern as emissions increase, there is a steep slope, but it plateaus as emissions rise.
 
 #### Linear Regression Model
+
+We used Simple Linear Regression (SLR) to fit a linear model between our variables. By using SLR, we assume that there is a linear relationship between average co2 emissions and average life expectancy per country, and we can use that to estimate a country’s average life expectancy (response variable) based on their average co2 emissions (explanatory variable). This function will be of the following form: response = intercept + slope * explanatory. Therefore, we can predict the average life expectancy of a country by multiplying their average co2 emissions by the model slope and adding the model intercept.
+
 ```{r}
 #| fig-cap: "Table 1."
 # Model:
