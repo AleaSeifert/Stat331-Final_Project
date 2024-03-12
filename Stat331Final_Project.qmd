@@ -86,14 +86,15 @@ animated <- project_data |>
              na.rm = TRUE) +
   labs(title = "CO2 Emisions vs. Life Expectancy per Year",
        subtitle = "Year: {round(frame_time)}",
-       x = "CO2 Emisions",
-       y = "Life Expectancy") +
+       x = "CO2 Emisions (tonnes per capita)",
+       y = "Life Expectancy (years)") +
   transition_time(year) +
   ease_aes("linear") +
   theme_bw()
 
 animate(animated, renderer = gifski_renderer(), fps = 7)
 ```
+
 ```{r}
 
 # Visualization 2:
@@ -130,7 +131,8 @@ project_data |>
   theme_bw() +
   labs(title = "Averge CO2 Emisions and Life Expectancy per Country",
        x = "Average CO2 Emisions (tonnes per capita)",
-       y = "Average Life Expectancy (years)")
+       y = NULL,
+       subtitle = "Average Life Expectancy (years)")
 
 # Model:
 project_lm <- project_data |>
@@ -148,13 +150,16 @@ broom::tidy(project_lm) |>
 #### Model Fit
 
 ```{r}
-residuals <- broom::augment(project_lm) 
 
-  ggplot(residuals, aes(x = .fitted, y = .resid)) +
-  geom_jitter() + 
-  geom_smooth(method = "lm")
-  
-residuals
+project_lm |> 
+  broom::augment() |> 
+ggplot(aes(x = .fitted, y = .resid)) +
+  geom_point() + 
+  geom_abline(slope = 0,
+              intercept = 0, 
+              color = "steelblue",
+              linetype = "dashed",
+              lwd = 1.5) 
 ```
 
 $\widehat{y} = 41.149 + 1.806x$
