@@ -72,7 +72,7 @@ We applied as.numeric for both data sets, and lastly pivoted long each data to r
 
 #### Hypothesized Relationship
 
-In our model we will analyze CO2 emissions as the explanatory variable and life expectancy as the response variable. We expect a negative relationship between CO2 emissions and life expectancy, where countries that produce greater amounts of C02 tend to have lower life expectancy. We assume C02 emissions decrease air quality and cause respiratory issues, decreasing life expectancy.
+In our model we will analyze CO2 emissions as the explanatory variable and life expectancy as the response variable. We expect a negative relationship between CO2 emissions and life expectancy, where countries that produce greater amounts of CO2 tend to have lower life expectancy. We assume CO2 emissions decrease air quality and cause respiratory issues, decreasing life expectancy.
 
 ## Linear Regression Analysis
 
@@ -85,10 +85,10 @@ animated <- project_data |>
              y = life_exp)) +
   geom_point(alpha = 0.7, show.legend = FALSE,
              na.rm = TRUE) +
-  labs(title = "CO2 Emissions vs. Life Expectancy per Year",
-       subtitle = "Year: {round(frame_time)}",
+  labs(title = "CO2 Emissions vs. Life Expectancy per Year: {round(frame_time)}",
        x = "CO2 Emissions (tonnes per capita)",
-       y = "Life Expectancy (years)") +
+       y = "",
+       subtitle = "Life Expectancy (years)") +
   transition_time(year) +
   ease_aes("linear") +
   theme_bw()
@@ -96,7 +96,7 @@ animated <- project_data |>
 animate(animated, renderer = gifski_renderer(), fps = 7)
 ```
 
-Figure 1 depicts the relationship between the explanatory variable of carbon dioxide emissions per capita in tonnes and the response variable of life expectancy in years over years 1800 to 2022. It appears that with each year, both CO2 emissions and life expectancy increase. They likely both increase over time due to .....
+Figure 1 depicts the relationship between the explanatory variable of carbon dioxide emissions per capita in tonnes and the response variable of life expectancy in years over years 1800 to 2022. It appears that with each year, both CO2 emissions and life expectancy increase. They likely both increase over time due to technology advancements. While the effects of CO2 emissions can create an impact on an individuals health, society still progresses in fields such as health care.
 
 ```{r}
 # Visualization 2:
@@ -165,6 +165,3 @@ augment(project_lm) |>
   mutate(var_prop = var_fit/var_response) |>
   knitr::kable(digits = 3)
 ```
-
-
-
