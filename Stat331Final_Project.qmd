@@ -71,9 +71,10 @@ We applied as.numeric for both data sets, and lastly pivoted long each data to r
 
 In our model we will analyze CO2 emissions as the explanatory variable and life expectancy as the response variable. We expect a negative relationship between CO2 emissions and life expectancy, where countries that produce greater amounts of C02 tend to have lower life expectancy. We assume C02 emissions decrease air quality and cause respiratory issues, decreasing life expectancy.
 
-## Linear Regression Analysis 
+## Linear Regression Analysis
 
 #### Data Visualization
+
 ```{r}
 # Visualization 1:
 library(gganimate)
@@ -110,6 +111,7 @@ project_data |>
 ```
 
 #### Linear Regression Model
+<<<<<<< HEAD
 ```{r}
 project_lm <- project_data |>
   group_by(country) |>
@@ -119,10 +121,22 @@ project_lm <- project_data |>
 project_lm <- lm(avg_life_exp ~ avg_co2,
                data = project_lm)
 broom::tidy(project_lm)
+=======
+
+```{r}
+project_lm <- lm(life_exp ~ co2,
+               data = project_data)
+>>>>>>> 3400c16e0bb7e68fef8548ac24978c33c6755a7b
 ```
 
 #### Model Fit
+
 ```{r}
+residuals <- broom::augment(project_lm) 
 
+  ggplot(residuals, aes(x = .fitted, y = .resid)) +
+  geom_jitter() + 
+  geom_smooth(method = "lm")
+  
+residuals
 ```
-
