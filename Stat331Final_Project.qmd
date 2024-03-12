@@ -27,6 +27,8 @@ For our final project, we chose to focus on CO2 emissions per capita and life ex
 ```{r setup}
 # load in data
 library(tidyverse)
+library(gganimate)
+library(gifski)
 ```
 
 ```{r data}
@@ -77,7 +79,6 @@ In our model we will analyze CO2 emissions as the explanatory variable and life 
 
 ```{r}
 # Visualization 1:
-library(gganimate)
 animated <- project_data |>
   ggplot(aes(x = co2, 
              y = life_exp)) +
@@ -92,6 +93,8 @@ animated <- project_data |>
   theme_bw()
 
 animate(animated, renderer = gifski_renderer(), fps = 7)
+```
+```{r}
 
 # Visualization 2:
 project_data |>
@@ -105,10 +108,11 @@ project_data |>
   geom_point(alpha = 0.7,
              na.rm = TRUE) +
   labs(title = "Averge CO2 Emisions and Life Expectancy per Country",
-       x = "Average CO2 Emisions",
+       x = "Average CO2 Emisions (tonnes per capita)",
        y = "",
-       subtitle = "Average Life Expectancy") +
+       subtitle = "Average Life Expectancy (years)") +
   theme_bw()
+
 ```
 
 #### Linear Regression Model
@@ -125,8 +129,8 @@ project_data |>
   geom_smooth(method = "lm", na.rm = TRUE) +
   theme_bw() +
   labs(title = "Averge CO2 Emisions and Life Expectancy per Country",
-       x = "Average CO2 Emisions",
-       y = "Average Life Expectancy")
+       x = "Average CO2 Emisions (tonnes per capita)",
+       y = "Average Life Expectancy (years)")
 
 # Model:
 project_lm <- project_data |>
@@ -152,3 +156,7 @@ residuals <- broom::augment(project_lm)
   
 residuals
 ```
+
+$\widehat{y} = 41.149 + 1.806x$
+
+For every additional one ton per capita of CO2 emissions, we can expect an additional year in life expectancy.
