@@ -85,10 +85,10 @@ animated <- project_data |>
              y = life_exp)) +
   geom_point(alpha = 0.7, show.legend = FALSE,
              na.rm = TRUE) +
-  labs(title = "CO2 Emissions vs. Life Expectancy per Year",
-       subtitle = "Year: {round(frame_time)}",
+  labs(title = "CO2 Emissions vs. Life Expectancy per Year: {round(frame_time)}",
        x = "CO2 Emissions (tonnes per capita)",
-       y = "Life Expectancy (years)") +
+       y = "",
+       subtitle = "Life Expectancy (years)") +
   transition_time(year) +
   ease_aes("linear") +
   theme_bw()
