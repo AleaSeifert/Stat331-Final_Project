@@ -102,7 +102,7 @@ project_data |>
          ) +
   geom_point(alpha = 0.7,
              na.rm = TRUE) +
-  labs(title = "Averge CO2 Emmisions vs. Average Life Expectancy per Country",
+  labs(title = "Averge CO2 Emmisions and Life Expectancy per Country",
        x = "Average CO2 Emmisions",
        y = "",
        subtitle = "Average Life Expectancy") +
@@ -111,7 +111,14 @@ project_data |>
 
 #### Linear Regression Model
 ```{r}
+project_lm <- project_data |>
+  group_by(country) |>
+  summarize(avg_co2 = mean(co2),
+            avg_life_exp = mean(life_exp))
 
+project_lm <- lm(avg_life_exp ~ avg_co2,
+               data = project_lm)
+broom::tidy(project_lm)
 ```
 
 #### Model Fit
