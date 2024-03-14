@@ -200,11 +200,6 @@ sim_data |>
 #### Generating Multiple Predictive Checks
 
 ```{r}
-lm(avg_life_exp ~ sim, data = sim_data) |>
-  glance() |>
-  select(r.squared) |>
-  pull()
-
 nsims <- 100
 sims <- map_dfc(
   .x = 1:nsims,
@@ -246,8 +241,4 @@ tibble(sims = sims_r) |>
     subtitle = "Number of Simulated Models"
   ) +
   theme_bw()
-
-head(sims)
-head(sims_r)
-
 ```
