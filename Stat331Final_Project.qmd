@@ -176,11 +176,29 @@ The table shows 42.41% of variability in life expectancy is explained by our lin
 
 #### Visualizing Simulations from the Model
 ```{r}
+simulation <- as.vector(predict(project_lm) + rnorm(n = 186, mean = 0, sd = sigma(project_lm)))
+sim_data <- project_data |>
+  group_by(country) |>
+  summarize(avg_life_exp = mean(life_exp)) |>
+  filter(!is.na(avg_life_exp)) |>
+  mutate(sim = simulation)
 
+sim_data |>
+  ggplot(mapping = aes(x = sim, y = avg_life_exp)) +
+  geom_point() +
+  labs(title = "Observed vs. Simulated Average Life Expectancy",
+       x = "Simulated Average Life Expectancy per Country (Years)",
+       y = "",
+       subtitle = "Observed Average Life Expectancy per Country (Years)") +
+  geom_smooth(method = "lm") +
+  theme_bw()
 ```
 
 #### Generating Multiple Predictive Checks
 ```{r}
-
+lm(avg_life_exp ~ sim, data = sim_data) |>
+  glance() |>
+  select(r.squared) |>
+  pull()
 ```
 
