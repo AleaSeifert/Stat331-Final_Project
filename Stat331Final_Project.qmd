@@ -171,3 +171,16 @@ augment(project_lm) |>
 ```
 
 The table shows 42.41% of variability in life expectancy is explained by our linear regression model using CO2 emissions as a predictor ($14.02/33.04 = 0.4241$). Accounting for not even half of the variability, this does not appear to be a particularly strong model of life expectancy.
+
+## Simulation
+
+#### Visualizing Simulations from the Model
+```{r}
+
+```
+
+#### Generating Multiple Predictive Checks
+```{r}
+
+```
+
