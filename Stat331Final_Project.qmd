@@ -202,4 +202,45 @@ lm(avg_life_exp ~ sim, data = sim_data) |>
   glance() |>
   select(r.squared) |>
   pull()
+
+nsims <- 100 
+sims <- map_dfc(.x = 1:nsims,
+                .f = ~ tibble(sim = as.vector(predict(project_lm) + rnorm(n = 186, 
+                                                                          mean = 0, 
+                                                                          sd = sigma(project_lm)
+                                                                          )
+                                              )
+                              )
+                )
+
+colnames(sims) <- colnames(sims)|>
+  str_replace(pattern = "\\.\\.\\.",
+              replace = "_")
+
+sims <- project_data |>
+  group_by(country) |>
+  summarize(avg_life_exp = mean(life_exp)) |>
+  filter(!is.na(avg_life_exp)) |>
+  select(avg_life_exp) |>
+  bind_cols(sims)
+
+sims_r <- sims |>
+  map(~ lm(avg_life_exp ~ .x,
+           data = sims))|>
+  map(glance)|>
+  map_dbl(~ .x$r.squared)
+
+sims_r <- sims_r[names(sims_r) != "avg_life_exp"]
+
+tibble (sims = sims_r)|>
+  ggplot(aes(x = sims)) + 
+  geom_histogram(binwidth = 0.025) +
+  labs(x = expression("Simulated" ~ R^2),
+       y = "",
+       subtitle = "Number of Simulated Models") +
+  theme_bw()
+  
+head(sims)
+head(sims_r)
+
 ```
