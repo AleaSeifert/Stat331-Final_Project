@@ -175,12 +175,13 @@ The table shows 42.41% of variability in life expectancy is explained by our lin
 ## Simulation
 
 #### Visualizing Simulations from the Model
+
 ```{r}
 
 ```
 
 #### Generating Multiple Predictive Checks
+
 ```{r}
 
 ```
-
