@@ -187,10 +187,12 @@ sim_data <- project_data |>
 sim_data |>
   ggplot(mapping = aes(x = sim, y = avg_life_exp)) +
   geom_point() +
-  labs(title = "Observed vs. Simulated Average Life Expectancy",
-       x = "Simulated Average Life Expectancy per Country (Years)",
-       y = "",
-       subtitle = "Observed Average Life Expectancy per Country (Years)") +
+  labs(
+    title = "Observed vs. Simulated Average Life Expectancy",
+    x = "Simulated Average Life Expectancy per Country (Years)",
+    y = "",
+    subtitle = "Observed Average Life Expectancy per Country (Years)"
+  ) +
   geom_smooth(method = "lm") +
   theme_bw()
 ```
@@ -203,19 +205,21 @@ lm(avg_life_exp ~ sim, data = sim_data) |>
   select(r.squared) |>
   pull()
 
-nsims <- 100 
-sims <- map_dfc(.x = 1:nsims,
-                .f = ~ tibble(sim = as.vector(predict(project_lm) + rnorm(n = 186, 
-                                                                          mean = 0, 
-                                                                          sd = sigma(project_lm)
-                                                                          )
-                                              )
-                              )
-                )
+nsims <- 100
+sims <- map_dfc(
+  .x = 1:nsims,
+  .f = ~ tibble(sim = as.vector(predict(project_lm) + rnorm(
+    n = 186,
+    mean = 0,
+    sd = sigma(project_lm)
+  )))
+)
 
-colnames(sims) <- colnames(sims)|>
-  str_replace(pattern = "\\.\\.\\.",
-              replace = "_")
+colnames(sims) <- colnames(sims) |>
+  str_replace(
+    pattern = "\\.\\.\\.",
+    replace = "_"
+  )
 
 sims <- project_data |>
   group_by(country) |>
@@ -226,20 +230,23 @@ sims <- project_data |>
 
 sims_r <- sims |>
   map(~ lm(avg_life_exp ~ .x,
-           data = sims))|>
-  map(glance)|>
+    data = sims
+  )) |>
+  map(glance) |>
   map_dbl(~ .x$r.squared)
 
 sims_r <- sims_r[names(sims_r) != "avg_life_exp"]
 
-tibble (sims = sims_r)|>
-  ggplot(aes(x = sims)) + 
+tibble(sims = sims_r) |>
+  ggplot(aes(x = sims)) +
   geom_histogram(binwidth = 0.025) +
-  labs(x = expression("Simulated" ~ R^2),
-       y = "",
-       subtitle = "Number of Simulated Models") +
+  labs(
+    x = expression("Simulated" ~ R^2),
+    y = "",
+    subtitle = "Number of Simulated Models"
+  ) +
   theme_bw()
-  
+
 head(sims)
 head(sims_r)
 
