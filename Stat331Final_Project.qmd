@@ -258,10 +258,13 @@ sims_r <- sims_r[names(sims_r) != "avg_life_exp"]
 tibble(sims = sims_r) |>
   ggplot(aes(x = sims)) +
   geom_histogram(binwidth = 0.025) +
-  labs(
+  labs(title = expression("Distribution of Simulated" ~ R^2),
     x = expression("Simulated" ~ R^2),
     y = "",
     subtitle = "Number of Simulated Models"
   ) +
   theme_bw()
 ```
+
+The $R^{2}$ value tells us how well the simulated data matches the observed data. It is calculated on a scale from 0 to 1, with $R^{2}$ values closer to 1 signifying a stronger model. Since the $R^{2}$ value of the observed average life expectancy and the simulated average life expectancy is relatively small, only about `r round(median(sims_r), 4)`, we can conclude that our simulated linear regression model does not match our observed data very well and does not have very strong predictive ability. This is understandable due to the fact that our original linear model assumptions were not met - specifically the condition of linearity. Since our original observed data was not very linear, it follows that a linear model would not be the best fit.
+
