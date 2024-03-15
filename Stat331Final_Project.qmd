@@ -177,24 +177,43 @@ The table shows 42.41% of variability in life expectancy is explained by our lin
 #### Visualizing Simulations from the Model
 
 ```{r}
+#| layout-ncol: 2
+
+# observed plot
+project_data |>
+  group_by(country) |>
+  summarize(avg_co2 = mean(co2),
+            avg_life_exp = mean(life_exp)) |>
+  ggplot(aes(x = avg_co2,
+             y = avg_life_exp)) +
+  geom_point(na.rm = TRUE) +
+  theme_bw() +
+  labs(title = "Observed Life Expectancy per Country",
+       x = "Average CO2 Emissions (tonnes per capita)",
+       y = NULL,
+       subtitle = "Average Life Expectancy (years)") +
+  ylim(25, 70)
+
+# simulated plot
 simulation <- as.vector(predict(project_lm) + rnorm(n = 186, mean = 0, sd = sigma(project_lm)))
 sim_data <- project_data |>
   group_by(country) |>
-  summarize(avg_life_exp = mean(life_exp)) |>
+  summarize(avg_life_exp = mean(life_exp),
+            avg_co2 = mean(co2)) |>
   filter(!is.na(avg_life_exp)) |>
   mutate(sim = simulation)
 
 sim_data |>
-  ggplot(mapping = aes(x = sim, y = avg_life_exp)) +
-  geom_point() +
+  ggplot(mapping = aes(x = avg_co2, y = sim)) +
+  geom_point(na.rm = TRUE) +
   labs(
-    title = "Observed vs. Simulated Average Life Expectancy",
-    x = "Simulated Average Life Expectancy per Country (Years)",
+    title = "Simulated Life Expectancy per Country based on Linear Regression Model",
+    x = "Average CO2 Emissions (tonnes per capita)",
     y = "",
-    subtitle = "Observed Average Life Expectancy per Country (Years)"
+    subtitle = "Average Life Expectancy (years)"
   ) +
-  geom_smooth(method = "lm") +
-  theme_bw()
+  theme_bw() +
+  ylim(25, 70)
 ```
 
 #### Generating Multiple Predictive Checks
