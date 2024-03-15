@@ -31,6 +31,7 @@ library(gganimate)
 library(gifski)
 library(broom)
 library(kableExtra)
+library(scales)
 ```
 
 ```{r data}
@@ -135,6 +136,9 @@ project_lm <- lm(avg_life_exp ~ avg_co2,
                  data = project_lm)
 broom::tidy(project_lm) |>
   knitr::kable(digits = 3)
+  scales::label_pvalue(accuracy = 0.0001,
+                       decimal.mark = ".",
+                       prefix = "<")
 ```
 
 $\widehat{y} = 41.149 + 1.806x$
