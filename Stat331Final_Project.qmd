@@ -65,12 +65,9 @@ project_data <- co2_emissions_long |>
   mutate(year = as.numeric(year))
 
 ```
+We pivoted both data sets to be in long format, them combined them into a singular data set containing variables for country, year, CO$_{2}$ emissions, and life expectancy. The resultant observational unit is a combination of country and year. Country and year pairings that were not included in both of the original data sets were excluded.
 
-When downloading our desired data sets, CO$_{2}$ emissions per capita and life expectancy we received some warnings during our attempts to pivot our data sets. We came to learn that R was reading in the negative dashes as character variables as opposed to numeric, specifically in our CO$_{2}$ emissions data.
-
-To fix this issue, our group utilized `str_replace_all` (string replace) in order to replace the character variable with negative signs. This process was only applied for the CO$_{2}$ emissions data.
-
-We applied as.numeric for both data sets, and lastly pivoted long each data to receive our variables country, year and the data collected per data set.
+When pivoting the data, we received some warnings that resulted from R reading in the negative dashes as character values as opposed to numeric, specifically in our CO$_{2}$ emissions data. To fix this issue, we replaced all dash symbols with the appropriate negative sign. This process was only applied for the CO$_{2}$ emissions data. Both data sets were then completely converted to character values.
 
 #### Hypothesized Relationship
 
