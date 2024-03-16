@@ -78,6 +78,9 @@ In our model we will analyze CO$_{2}$ emissions as the explanatory variable and 
 #### Data Visualization
 
 ```{r}
+#| fig-cap: "Figure 1."
+#| fig-align: center
+
 # Visualization 1:
 animated <- project_data |>
   ggplot(aes(x = co2, 
@@ -98,6 +101,9 @@ animate(animated, renderer = gifski_renderer(), fps = 7)
 Figure 1 depicts the relationship between the explanatory variable of carbon dioxide emissions per capita in tonnes and the response variable of life expectancy in years over years 1800 to 2022. It appears that with each year, both CO$_{2}$ emissions and life expectancy increase. They likely both increase over time due to technology advancements. While the effects of CO$_{2}$ emissions can create an impact on an individuals health, society still progresses in fields such as health care.
 
 ```{r}
+#| fig-cap: "Figure 2."
+#| fig-align: center
+
 # Visualization 2:
 project_data |>
   group_by(country) |>
@@ -122,6 +128,9 @@ Figure 2 depicts the average carbon dioxide emissions per capita in tonnes per c
 We used Simple Linear Regression (SLR) to fit a linear model between our variables. By using SLR, we assume that there is a linear relationship between average CO$_{2}$ emissions and average life expectancy per country, and we can use that to estimate a country’s average life expectancy (response variable) based on their average CO$_{2}$ emissions (explanatory variable). This function will be of the following form: response = intercept + slope \* explanatory. Therefore, we can predict the average life expectancy of a country by multiplying their average CO$_{2}$ emissions by the model slope and adding the model intercept.
 
 ```{r}
+#| fig-cap: "Figure 3."
+#| fig-align: center
+
 # Model:
 project_lm <- project_data |>
   group_by(country) |>
@@ -146,6 +155,9 @@ This relationship makes sense because as mentioned, over time there have been de
 #### Model Fit
 
 ```{r}
+#| fig-cap: "Figure 4."
+#| fig-align: center
+
 project_lm |> 
   broom::augment() |> 
 ggplot(aes(x = .fitted, y = .resid)) +
@@ -169,6 +181,9 @@ We can assume equal variance because the points of a residuals versus fits based
 However, we cannot assume linearity because there is a slight curve seen in the visualization of the relationship between CO$_{2}$ emissions and life expectancy in our data (Fig. 2), as well as in the linear model's residuals versus fits plot. Thus, we should proceed with caution when interpreting results produced by a linear regression model.
 
 ```{r}
+#| fig-cap: "Figure 5."
+#| fig-align: center
+
 augment(project_lm) |>
   summarize(var_response = var(avg_life_exp),
             var_fit = var(.fitted),
@@ -188,6 +203,8 @@ The table shows 42.41% of variability in life expectancy is explained by our lin
 
 ```{r}
 #| layout-ncol: 2
+#| fig-cap: "Figure 6."
+#| fig-align: center
 
 # observed plot
 project_data |>
@@ -231,6 +248,9 @@ Comparing plots of the observed life expectancies and simulated life expectancie
 #### Generating Multiple Predictive Checks
 
 ```{r}
+#| fig-cap: "Figure 7."
+#| fig-align: center
+
 nsims <- 1000
 sims <- map_dfc(
   .x = 1:nsims,
