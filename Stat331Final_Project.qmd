@@ -142,7 +142,9 @@ project_lm |>
 
 $\widehat{y} = 41.149 + 1.806x$
 
-Our response variable is life expectancy and our explanatory is $CO_{2}$ emissions. Our simple linear model provided us with the information that the average life expectancy is 41.149 years when carbon dioxide emissions are zero. The slope term in our model is stating that for every additional one tonne per capita of $CO_{2}$ emissions, the estimated life expectancy goes up by 1.806 years, on average.
+Our response variable (y = 41.149) is life expectancy and our explanatory is (x = 1.806) $CO_{2}$ emissions. Our simple linear model provided us with the information that the average life expectancy is 41.149 years when carbon dioxide emissions are zero. The slope term in our model is stating that for every additional one tonne per capita of $CO_{2}$ emissions, the estimated life expectancy goes up by 1.806 years, on average.
+
+This relationship makes sense because as mentioned, over time there have been developments that allow access to improved healthcare and sanitation; this can contribute to the positive growth in the estimated life expectancy essentially overpowering the effects of the $CO_{2}$ emissions. In addition, advancing as a society, individuals might learn to be more aware/educated on this matter, advocating to find ways to regulate this source of pollution in order to reduce environmental hazards that can impact life expectancy.
 
 #### Model Fit
 
@@ -160,6 +162,12 @@ ggplot(aes(x = .fitted, y = .resid)) +
               lwd = 1.5) +
   theme_bw()
 ```
+
+We cannot assume linearity in the relationship between our data’s CO2 emissions and life expectancy values because there is a slight curve seen in Fig. 2. Thus, we should proceed with caution when interpreting results produced by a linear regression model.
+
+We can assume independence because we are observing the average values of our relationships per country. Each country will have its own state of conditions of how extreme CO2 emissions can impact their regions life expectancy. While pollution isn’t necessarily confined to a specific location, interpreting the produced emissions in a specific country is more reliable than also accounting for the influence of the emissions in a different country or any other environmental hazards. If we did not average our data meaning there are multiple observational rows per country, then independence would be violated.
+
+The residuals are not normally distributed. Our group produced a histogram to check normality between life expectancy and CO2 emissions and the output did not resemble a bell shaped curve, instead it closely resembled a bimodal distribution.
 
 ```{r}
 augment(project_lm) |>
@@ -266,4 +274,3 @@ tibble(sims = sims_r) |>
 ```
 
 The $R^{2}$ value tells us how well the simulated data matches the observed data. It is calculated on a scale from 0 to 1, with $R^{2}$ values closer to 1 signifying a stronger model. Since the $R^{2}$ value of the observed average life expectancy and the simulated average life expectancy is relatively small, only about `r round(median(sims_r), 4)`, we can conclude that our simulated linear regression model does not match our observed data very well and does not have very strong predictive ability. This is understandable due to the fact that our original linear model assumptions were not met - specifically the condition of linearity. Since our original observed data was not very linear, it follows that a linear model would not be the best fit.
-
