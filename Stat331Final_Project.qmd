@@ -130,15 +130,14 @@ project_lm <- project_data |>
   group_by(country) |>
   summarize(avg_co2 = mean(co2),
             avg_life_exp = mean(life_exp))
-
-# Coefficients:
 project_lm <- lm(avg_life_exp ~ avg_co2,
                  data = project_lm)
-broom::tidy(project_lm) |>
+
+# Coefficients:
+project_lm |>
+  broom::tidy() |>
+  mutate(p.value = scales::pvalue(p.value)) |>
   knitr::kable(digits = 3)
-  scales::label_pvalue(accuracy = 0.0001,
-                       decimal.mark = ".",
-                       prefix = "<")
 ```
 
 $\widehat{y} = 41.149 + 1.806x$
