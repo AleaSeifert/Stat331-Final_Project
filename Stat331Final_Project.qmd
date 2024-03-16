@@ -163,11 +163,13 @@ ggplot(aes(x = .fitted, y = .resid)) +
   theme_bw()
 ```
 
-We cannot assume linearity in the relationship between our data’s CO2 emissions and life expectancy values because there is a slight curve seen in Fig. 2. Thus, we should proceed with caution when interpreting results produced by a linear regression model.
+We can assume independence because we are observing average values of life expectancy per country. Each country should generally have its own state of conditions that determine life expectancy. If we did not average our data, meaning there are multiple observational rows per country, then independence would be violated.
 
-We can assume independence because we are observing the average values of our relationships per country. Each country will have its own state of conditions of how extreme CO2 emissions can impact their regions life expectancy. While pollution isn’t necessarily confined to a specific location, interpreting the produced emissions in a specific country is more reliable than also accounting for the influence of the emissions in a different country or any other environmental hazards. If we did not average our data meaning there are multiple observational rows per country, then independence would be violated.
+We can assume normality because a histogram of our data's life expectancies averaged across years per country is fairly bell shaped. The distribution is slightly right skewed, but our sample size of countries is large ($n$ = 193) so should still be reliable.
 
-The residuals are not normally distributed. Our group produced a histogram to check normality between life expectancy and CO2 emissions and the output did not resemble a bell shaped curve, instead it closely resembled a bimodal distribution.
+We can assume equal variance because the points of a residuals versus fits based on a SLR model, although shift up and down, do not appear to fan in or out.
+
+However, we cannot assume linearity because there is a slight curve seen in the visualization of the relationship between CO2 emissions and life expectancy in our data (Fig. 2), as well as in the linear model's residuals versus fits plot. Thus, we should proceed with caution when interpreting results produced by a linear regression model.
 
 ```{r}
 augment(project_lm) |>
