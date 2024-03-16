@@ -142,7 +142,7 @@ project_lm |>
 
 $\widehat{y} = 41.149 + 1.806x$
 
-Our response variable (y = 41.149) is life expectancy and our explanatory is (x = 1.806) $CO_{2}$ emissions. Our simple linear model provided us with the information that the average life expectancy is 41.149 years when carbon dioxide emissions are zero. The slope term in our model is stating that for every additional one tonne per capita of $CO_{2}$ emissions, the estimated life expectancy goes up by 1.806 years, on average.
+Our estimated response variable ($\widehat{y}$) is estimated life expectancy and our explanatory ($x$) is $CO_{2}$ emissions. Our simple linear model provided us with the information that the average life expectancy is 41.149 years when carbon dioxide emissions are zero. The slope term in our model is stating that for every additional one tonne per capita of $CO_{2}$ emissions, the estimated life expectancy goes up by 1.806 years, on average.
 
 This relationship makes sense because as mentioned, over time there have been developments that allow access to improved healthcare and sanitation; this can contribute to the positive growth in the estimated life expectancy essentially overpowering the effects of the $CO_{2}$ emissions. In addition, advancing as a society, individuals might learn to be more aware/educated on this matter, advocating to find ways to regulate this source of pollution in order to reduce environmental hazards that can impact life expectancy.
 
@@ -230,7 +230,7 @@ sim_data |>
 #### Generating Multiple Predictive Checks
 
 ```{r}
-nsims <- 100
+nsims <- 1000
 sims <- map_dfc(
   .x = 1:nsims,
   .f = ~ tibble(sim = as.vector(predict(project_lm) + rnorm(
