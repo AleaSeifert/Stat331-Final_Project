@@ -36,8 +36,8 @@ For our final project, we chose to focus on how carbon dioxide (CO$_{2}$) emissi
 
 ```{r data}
 # Data
-co2_emissions <- read_csv(here::here("co2_pcap_cons.csv"))
-life_expectancy <- read_csv(here::here("lex.csv"))
+co2_emissions <- read_csv(here::here("data", "co2_pcap_cons.csv"))
+life_expectancy <- read_csv(here::here("data", "lex.csv"))
 
 # Pivoting Longer
 co2_emissions_long <- co2_emissions |>
