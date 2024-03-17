@@ -83,7 +83,7 @@ We can assume normality because a histogram of average life expectancy per count
 
 We can assume equal variance because the points of a residuals versus fits based on a SLR model, although shift up and down, do not appear to fan in or out.
 
-However, we cannot assume linearity because there is a slight curve seen in the visualization of the relationship between CO$_{2}$ emissions and life expectancy in our data (Fig. 2), as well as in the linear model's residuals versus fits plot. Thus, we should proceed with caution when interpreting results produced by a linear regression model.
+However, we cannot assume linearity because there is a slight curve seen in the visualization of the relationship between CO$_{2}$ emissions and life expectancy in our data (Figure 2), as well as in the linear model's residuals versus fits plot. Thus, we should proceed with caution when interpreting results produced by a linear regression model.
 
 ## Results
 
@@ -101,7 +101,7 @@ animated <- project_data |>
              y = life_exp)) +
   geom_point(alpha = 0.7, show.legend = FALSE,
              na.rm = TRUE) +
-  labs(title = "CO2 Emissions vs. Life Expectancy per Country in Year: {round(frame_time)}",
+  labs(title = "Average CO2 Emissions vs. Life Expectancy per Country in Year: {round(frame_time)}",
        x = "CO2 Emissions (tonnes per capita)",
        y = "",
        subtitle = "Life Expectancy (years)") +
@@ -130,10 +130,11 @@ country_data |>
   geom_jitter(na.rm = TRUE) +
   geom_smooth(method = "lm", na.rm = TRUE) +
   theme_bw() +
-  labs(title = "Averge CO2 Emissions and Life Expectancy per Country",
-       x = "Average CO2 Emissions (tonnes per capita)",
-       y = NULL,
-       subtitle = "Average Life Expectancy (years)")
+  labs(title = expression("Average CO"*""[2]*" Emissions and Life Expectancy per Country"),
+    x = expression("Average CO"*""[2]*" Emissions (tonnes per capita)"),
+    y = NULL,
+    subtitle = "Average Life Expectancy (years)")
+      
 
 ```
 
@@ -209,7 +210,7 @@ country_data |>
   geom_point(na.rm = TRUE) +
   theme_bw() +
   labs(title = "Observed Life Expectancy per Country",
-       x = "Average CO2 Emissions (tonnes per capita)",
+       x = expression("Average CO"*""[2]*" Emissions (tonnes per capita)"),
        y = NULL,
        subtitle = "Average Life Expectancy (years)") +
   ylim(25, 70)
@@ -225,7 +226,7 @@ sim_data |>
   geom_point(na.rm = TRUE) +
   labs(
     title = "Simulated Life Expectancy per Country based on Linear Regression Model",
-    x = "Average CO2 Emissions (tonnes per capita)",
+    x = expression("Average CO"*""[2]*" Emissions (tonnes per capita)"),
     y = "",
     subtitle = "Average Life Expectancy (years)"
   ) +
@@ -294,4 +295,4 @@ Similarly, since the $R^{2}$ value of the observed average life expediencies is 
 
 This is understandable due to the fact that our original linear model assumptions were not met - specifically the condition of linearity. Since our original observed data was not very linear, it follows that a linear model would not be the best fit.
 
-In conclusion, while we have determined that there is likely not a linear relationship between average CO$_2$ emissions per capita and average life expectancy, there may be a different model that would better represent their relationship.
+In conclusion we have determined that there is likely not a linear relationship between average CO$_2$ emissions per capita and average life expectancy. However, there may be a different model that would better represent a relationship.
