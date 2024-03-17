@@ -1,5 +1,5 @@
 ---
-title: "Stat331: FinalProject"
+title: "Stat 331: Final Project"
 author: "Alea Seifert, Robelyn Felices, Franchesca Garcia, and Libby Brill"
 embed-resources: true
 format: 
@@ -32,7 +32,7 @@ library(scales)
 
 #### Data Description and Cleaning
 
-For our final project, we chose to focus on how carbon dioxide (CO$_{2}$) emissions impacts life expectancy. We use data sets taken from Gapminder, which have been combined and collected from a variety of sources. The carbon dioxide emissions data set contains 194 observations (countries) with 224 variables (ranging in year from 1800 to 2022). These data represent the recorded consumption-based CO$_{2}$ emissions, in tonnes of CO$_{2}$ per capita. The life expectancy data set contains 195 observations (countries) with 302 variables (ranging in year from 1800 to 2100). The life expectancy data was collected from three main sources including 100 sources compiled by Mattias Lindgren from 1800-1970, the Global Burden of Disease Study from the Institute for Health Metrics and Evaluations containing data for 1970 to 2016, and World Population Prospects from the UN forecasts which published interpolated demographics from 2017-2099. These data represent the number of years a newborn infant would live assuming the mortality rate at their birth remains constant throughout their life.
+For our final project, we chose to focus on how carbon dioxide (CO$_{2}$) emissions impacts life expectancy. We used data sets taken from Gapminder, which have been combined and collected from a variety of sources. The carbon dioxide emissions data set contains 194 observations (countries) with 224 variables (ranging in year from 1800 to 2022). These data represent the recorded consumption-based CO$_{2}$ emissions, in tonnes of CO$_{2}$ per capita. The life expectancy data set contains 195 observations (countries) with 302 variables (ranging in year from 1800 to 2100). The life expectancy data was collected from three main sources including 100 sources compiled by Mattias Lindgren from 1800-1970, the Global Burden of Disease Study from the Institute for Health Metrics and Evaluations containing data for 1970 to 2016, and World Population Prospects from the UN forecasts which published interpolated demographics from 2017-2099. These data represent the number of years a newborn infant would live assuming the mortality rate at their birth remains constant throughout their life.
 
 ```{r data}
 # Data
@@ -63,7 +63,6 @@ project_data <- co2_emissions_long |>
     by = c("country", "year")
   ) |>
   mutate(year = as.numeric(year))
-
 ```
 
 We proceeded by pivoting both data sets into long format, then consolidating them into a singular data set containing variables for country, year, CO$_{2}$ emissions, and life expectancy.
@@ -72,19 +71,15 @@ While pivoting the data, we received some warnings that resulted from R reading 
 
 #### Method
 
-We analyzed the relationship between CO$_{2}$ emissions and life expectancy, using CO$_{2}$ emissions as the explanatory variable and life expectancy as the response variable. We expected a negative relationship between CO$_{2}$ emissions and life expectancy, where countries that produce greater amounts of CO$_{2}$ tend to have lower life expectancy. We assumeed CO$_{2}$ emissions decrease air quality and caused potential respiratory issues, decreasing life expectancy.
+We analyzed the relationship between CO$_{2}$ emissions and life expectancy, using CO$_{2}$ emissions as the explanatory variable and life expectancy as the response variable. We expected a negative relationship between CO$_{2}$ emissions and life expectancy, where countries that produce greater amounts of CO$_{2}$ tend to have lower life expectancy. We assumed CO$_{2}$ emissions decrease air quality and caused potential respiratory issues, decreasing life expectancy.
 
-We assessed this relationship by using a Simple Linear Regression (SLR) to fit a linear model between our variables averaged across time. By using SLR, we assumeed that there is a linear relationship between average CO$_{2}$ emissions and average life expectancy per country, and we can use that to estimate a country’s average life expectancy based on their average CO$_{2}$ emissions. This function is of the form: $\widehat{response} = intercept + slope*explanatory$. That is, we can predict the average life expectancy of a country by multiplying their average CO$_{2}$ emissions by the model slope and adding the model intercept.
+We assessed this relationship by using a Simple Linear Regression (SLR) to fit a linear model between our variables averaged across time. By using SLR, we assumed that there is a linear relationship between average CO$_{2}$ emissions and average life expectancy per country, and we can use that to estimate a country’s average life expectancy based on their average CO$_{2}$ emissions. This function is of the form: $\widehat{response} = intercept + slope*explanatory$. That is, we can predict the average life expectancy of a country by multiplying their average CO$_{2}$ emissions by the model slope and adding the model intercept.
 
 It is important to note that not all assumptions necessary for SLR are not met with our data:
 
-```{r}
-# include graphs for normality and equal variance?
-```
-
 We can assume independence because we are observing average values of life expectancy per country. Each country should generally have its own state of conditions that determine life expectancy, however we should be weary of a possible lack of independence. If we did not average our data, meaning there are multiple observational rows per country, then independence would be violated.
 
-We can assume normality because a histogram of life expediencies averaged across years per country is fairly bell shaped. The distribution is slightly right skewed, but our sample size of countries is large ($n$ = 193) so should still be reliable.
+We can assume normality because a histogram of average life expectancy per country is fairly bell shaped. The distribution is slightly right skewed, but our sample size of countries is large ($n$ = 186) so should still be reliable.
 
 We can assume equal variance because the points of a residuals versus fits based on a SLR model, although shift up and down, do not appear to fan in or out.
 
@@ -94,7 +89,7 @@ However, we cannot assume linearity because there is a slight curve seen in the 
 
 #### Data Visualization
 
-Our data immediately contrasts our hypothesis by showing a positive relationship between CO$_{2}$ emissions and life expectancy, as opposed to a negative relationship like we expected. We investigated how CO$_{2}$ emissions and life expectancy per country change over time.
+Our data immediately contrasted our hypothesis by showing a positive relationship between CO$_{2}$ emissions and life expectancy, as opposed to a negative relationship like we expected. We investigated how CO$_{2}$ emissions and life expectancy per country change over time:
 
 ```{r}
 #| fig-cap: "Figure 1."
@@ -117,7 +112,7 @@ animated <- project_data |>
 animate(animated, renderer = gifski_renderer(), fps = 7)
 ```
 
-Figure 1 depicts the relationship between the explanatory variable, carbon dioxide emissions per capita in tonnes, and the response variable, life expectancy in years, for each country over years 1800 to 2022. It appears that with each year, both CO$_{2}$ emissions and life expectancy increase. They likely both increase over time due to technological advancements. CO$_{2}$ emissions have likely increased burning of fossil fuels from developments like cars. While the effects of CO$_{2}$ emissions can create an impact on an individuals health, society also still progresses in fields such as health care and advancements in medicine. To further invistage, we analyzed the relationship between the CO$_{2}$ emissions and life expectancy per country averaged over the years.
+Figure 1 depicts the relationship between the explanatory variable, carbon dioxide emissions per capita in tonnes, and the response variable, life expectancy in years, for each country over years 1800 to 2022. It appears that with each year, both CO$_{2}$ emissions and life expectancy increase. They likely both increase over time due to technological advancements. CO$_{2}$ emissions have likely increased burning of fossil fuels from developments like cars. While the effects of CO$_{2}$ emissions can create an impact on an individuals health, society also still progresses in fields such as health care and advancements in medicine. To further investigate, we analyzed the relationship between the CO$_{2}$ emissions and life expectancy per country averaged over the years:
 
 ```{r}
 #| fig-cap: "Figure 2."
@@ -144,11 +139,11 @@ country_data |>
 
 Figure 2 depicts the average carbon dioxide emissions per capita in tonnes per country and the average life expectancy per country over the years 1800 to 2022. It appears that there is a positive, weak to moderate somewhat linear relationship between the two variables. There is an apparent increase in life expectancy as CO$_{2}$ emissions increase with a curved pattern where there is a steep slope, but then a plateau.
 
-This positive relationship makes sense because as mentioned, over time there have been continuous technological developments that. Many require increased burning of fossil fuels that emit CO$_{2}$, and many allow access to improved healthcare and sanitation. The latter can contribute to the positive growth in the estimated life expectancy essentially overpowering the effects of the CO$_{2}$ emissions. In addition, advancing as a society, individuals might learn to be more aware and educated on effects of air pollution, implementing ways to regulate it in order to reduce environmental hazards that can impact life expectancy. It appears that from our analyzes there is a potential confounding variables between these two variable.
+This positive relationship can be explained because, as mentioned, over time there have been continuous technological developments that require increased burning of fossil fuels which emit CO$_{2}$, and many allow access to improved healthcare and sanitation. The latter can contribute to the positive growth in the estimated life expectancy, even if CO$_{2}$ emissions themselves would have a negative effect. It appears that there are potential confounding variables between these two variables.
 
 #### Linear Regression Model
 
-To further analyze our data, we will fit a simple linear regression to the data produced the model. We will then analyze whether the model is a good predictor of our data.
+To further analyze our data, we fit a simple linear regression model to the data. We then analyzed whether the resulting model was a good predictor of our data:
 
 ```{r}
 #| fig-align: center
@@ -173,37 +168,11 @@ project_lm |>
 
 Which provides the equation: $\widehat{y} = 41.149 + 1.806x$
 
-Our estimated response variable ($\widehat{y}$) is estimated average life expectancy and our explanatory variable ($x$) is CO$_{2}$ emissions in tonnes per capita. Our simple linear model provided us with the information that the extimated average life expectancy is 41.149 years when carbon dioxide emissions are zero. The slope term in our model is stating that for every additional one tonne per capita of CO$_{2}$ emissions, the estimated average life expectancy goes up by 1.806 years, on average.
-
-The standard errors...
-
-The statistics...
-
-the p-values...
+Our predicted response variable ($\widehat{y}$) is the estimated average life expectancy per country, based on our explanatory variable ($x$), average CO$_{2}$ emissions in tonnes per capita. The intercept in our simple linear model provided us with the information that when carbon dioxide emissions are zero, the estimated average life expectancy is 41.149 years. The slope term in our model is stating that for every additional one tonne per capita of CO$_{2}$ emissions, the estimated average life expectancy goes up by 1.806 years, on average.
 
 #### Model Fit
 
-To assess how the fit of a regression model we will analyze how much of the variability in the response values were accounted for by the regression model. We can analyze the variance in the fitted values and residuals.
-
-```{r}
-#| fig-cap: "Figure 4."
-#| fig-align: center
-
-project_lm |> 
-  broom::augment() |> 
-ggplot(aes(x = .fitted, y = .resid)) +
-  geom_point() + 
-  labs(x = "Fitted Values",
-       y = "Residuals") +
-  geom_abline(slope = 0,
-              intercept = 0, 
-              color = "steelblue",
-              linetype = "dashed",
-              lwd = 1.5) +
-  theme_bw()
-```
-
-Figure 4 allows us to verify the assumption that the residuals are randomly distributed and have equal variance condition. To assess the quality of this model, we can compare the variation in the observed life expectancy values to the variation in its expected life expectancy values.
+To assess the fit of our linear regression model, we calculated the variance in the response, fitted values, and residuals. Additionally, we analyzed the proportion of the variability in the response values was accounted for by the regression model:
 
 ```{r}
 augment(project_lm) |>
@@ -212,7 +181,7 @@ augment(project_lm) |>
             var_resid = var(.resid)) |>
   mutate(var_prop = var_fit/var_response) |>
   knitr::kable(digits = 3,
-               caption = "Figure 5.",
+               caption = "Figure 4.",
                col.names = c("Variance in Response",
                              "Variance in Fitted",
                              "Variance in Residual", 
@@ -222,16 +191,16 @@ augment(project_lm) |>
 
 The table above shows that the 14.018 represents the amount of variability in the average life expectancy that was accounted for by CO$_{2}$ emissions. The value 19.036 is the amount of variability in life expectancy that has not been accounted for.
 
-Figure 4 also shows 42.41% of variability in life expectancy is explained by our linear regression model using CO$_{2}$ emissions as a predictor ($14.02/33.04 = 0.4241$). This is a relatively moderate percentage of variability that can be explained by the model. This means the model is not the best representation of the variability in average life expectancy as it about half of the variability.
+Figure 4 also shows 42.4% of variability in life expectancy is explained by our linear regression model using CO$_{2}$ emissions as a predictor ($14.018/33.054 = 0.424$). This is a relatively moderate percentage of variability that can be explained by the model. This means the model is not the best representation of the variability in average life expectancy as it accounts for less than half of the variability.
 
 #### Simulation
 
-To further investigate whether the linear regression model would be an appropriate descriptor of the data. We simulated data to further asses the quality of our linear model by comparing them to the observed data.
+To further investigate whether the linear regression model would be an appropriate descriptor of the data, we simulated data to assess the quality of our linear model by comparing them to the observed data:
 
 ```{r}
 #| layout-ncol: 2
 #| fig-align: center
-#| fig-cap: "Figure 6."
+#| fig-cap: "Figure 5."
 
 # observed plot
 country_data |>
@@ -264,12 +233,12 @@ sim_data |>
   ylim(25, 70)
 ```
 
-Comparing plots of the observed average life expectancy and simulated average life expectancy against CO$_{2}$ emissions (Figure 6), while their directions and strengths are similar, the simulated values are noticeably more linear in form as they are based on the SLR model and the observed values follow a curved shape. The simulated data consequently also have lower minimum values and higher maximum values. This tells us that we should be weary if the linear model it a good fit.
+In comparing plots of the observed average life expectancy and simulated average life expectancy against CO$_{2}$ emissions (Figure 5), their directions and strengths are similar, although the simulated values are noticeably more linear in form as they are based on the SLR model and the observed values follow a curved shape. The simulated data consequently also have lower minimum values and higher maximum values. This tells us that we should be hesitant to say that the linear model it a good fit.
 
-We will continue by analyzing $R^{2}$ values to tell us how well the simulated data matches the observed data. It is calculated on a scale from 0 to 1, with $R^{2}$ values closer to 1 signifying a stronger model.
+We continued by analyzing $R^{2}$ values to tell us how well the simulated data matched the observed data. It is calculated on a scale from 0 to 1, with $R^{2}$ values closer to 1 signifying a stronger model:
 
 ```{r}
-#| fig-cap: "Figure 7."
+#| fig-cap: "Figure 6."
 #| fig-align: center
 
 nsims <- 1000
@@ -315,12 +284,14 @@ tibble(sims = sims_r) |>
   theme_bw()
 ```
 
-The $R^{2}$ values for simulations based on our model histogram appears to have a normal distribution, with a possible right-skew. It appears to be centered around 0.1801 (Figure 7), which is relatively on the low-side. This indicates the data simulated under this statistical model are weakly similar to what was observed. On average, our simulated data accounts for about 18.01% of the variability in the observed life expectancy.
+The $R^{2}$ values for simulations based on our model histogram appears to have a normal distribution, with a possible right-skew. It appears to be centered around `r round(median(sims_r), 4)` (Figure 6), which is relatively on the low-side. This indicates the data simulated under this statistical model are weakly similar to what was observed. On average, our simulated data accounts for about `r round(median(sims_r), 4) * 100`% of the variability in the observed life expectancy.
 
 ## Conclusion
 
-The $R^{2}$ value 42.41% of our SLR model (Figure 4) allows us to conclude that, accounting for not even half of the variability, it does not appear to be a particularly strong model of life expectancy.
+The $R^{2}$ value 42.4% of our SLR model (Figure 4) allows us to conclude that, accounting for not even half of the variability, it does not appear to be a particularly strong model of life expectancy.
 
 Similarly, since the $R^{2}$ value of the observed average life expediencies is relatively small, only about `r round(median(sims_r), 4)`, we can conclude that our simulated linear regression model does not match our observed data very well. Thus, it is further supported that our SLR model and does not have very strong predictive ability.
 
 This is understandable due to the fact that our original linear model assumptions were not met - specifically the condition of linearity. Since our original observed data was not very linear, it follows that a linear model would not be the best fit.
+
+In conclusion, while we have determined that there is likely not a linear relationship between average CO$_2$ emissions per capita and average life expectancy, there may be a different model that would better represent their relationship.
